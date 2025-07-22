@@ -1,9 +1,16 @@
 [project]
 name = "ribomala"
 version = "0.5.0"
-description = "Add your description here"
+authors = [{ name="Puneet Sharma"}]
+description = "Ribomala is a python package to efficiently analyze ribosome profiling data."
 readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3.12"
+]
 dependencies = [
     "numpy>=2.2.5",
     "plotly>=6.0.1",
@@ -18,3 +25,15 @@ docs = [
     "mkdocs-material>=9.6.15",
     "mkdocstrings[python]>=0.29.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ps-puneetsharma/ribomala"
+Documentation = "https://ps-puneetsharma.github.io/ribomala/"
+
+[build-system]
+requires = ["setuptools>=80.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ribomala*"]
+exclude = ["tests*", "docs*", "site*"]

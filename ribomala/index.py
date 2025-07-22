@@ -13,6 +13,7 @@ import sys
 
 # --------------------------------------------------
 
+
 def index_fasta(fasta_file: str) -> pysam.FastaFile:
     """
     Indexes a transcriptome FASTA file if it is not already indexed and returns a `pysam.FastaFile` object.
@@ -64,13 +65,15 @@ def index_fasta(fasta_file: str) -> pysam.FastaFile:
         logging.info(f"Writing CSV to {output_path}")
         fasta_df.write_csv(output_path)
         logging.info(f"{fasta_file} successfully indexed!")
-        
+
     except Exception as e:
         logging.error(f"Error processing FASTA file: {e}")
         raise
     return indexed_fasta
 
+
 # --------------------------------------------------
+
 
 def run(args):
     """

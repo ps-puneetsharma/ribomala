@@ -144,7 +144,7 @@ def asite_pos(df: pl.DataFrame, offset_file: pl.DataFrame) -> pl.DataFrame:
     ----------
     df : pl.DataFrame
         Input DataFrame that must include 'read_length', 'frame', 'pos', and 'transcript_id' columns.
-        
+
     offset_file : str
         Path to a tab-delimited offset file with columns: read_length, frame, offset.
 
@@ -381,8 +381,7 @@ def calc_enrichment_score(df: pl.DataFrame) -> pl.DataFrame:
     """
 
     mean_read_counts = (
-        df
-        .group_by("transcript_id")
+        df.group_by("transcript_id")
         .agg(
             total_reads=pl.sum("reads"),
             transcript_length=pl.first("length"),
@@ -652,7 +651,8 @@ def run(args):
                 offset_out_path = Path(output_dir) / "offset_enrichment"
                 offset_out_path.mkdir(parents=True, exist_ok=True)
                 output_path = (
-                    offset_out_path / f"{output_name}_{codon}_offset_enrichment_scores.csv"
+                    offset_out_path
+                    / f"{output_name}_{codon}_offset_enrichment_scores.csv"
                 )
                 logging.info(f"Writing enrichment scores to {output_path}")
                 offset_enrichment_df.write_csv(output_path)
@@ -660,11 +660,12 @@ def run(args):
             enrichment_out_path = Path(output_dir) / "enrichment_epa_site"
             enrichment_out_path.mkdir(parents=True, exist_ok=True)
 
-            enrichment_output_path = Path(enrichment_out_path) / f"{output_name}_enrichment_scores.csv"
+            enrichment_output_path = (
+                Path(enrichment_out_path) / f"{output_name}_enrichment_scores.csv"
+            )
 
             logging.info(f"Writing enrichment scores to {enrichment_output_path}")
             enrichment_df.write_csv(enrichment_output_path)
-
 
             count_out_path = Path(output_dir) / "cds_counts"
             count_out_path.mkdir(parents=True, exist_ok=True)

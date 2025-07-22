@@ -1,5 +1,5 @@
 # Ribomala
-Ribomala is a python package to efficiently analyze ribosome  profiling data.
+Ribomala is a python package to efficiently analyze ribosome profiling data.
 
 # Features
 - Minimal set of, well maintained, dependencies.
