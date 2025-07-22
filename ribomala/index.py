@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 import polars as pl
 import pysam
+import sys
 
 # --------------------------------------------------
 
@@ -100,4 +101,4 @@ def run(args):
         index_fasta(args.fasta)
     except Exception as e:
         logging.error(f"Indexing failed: {e}")
-        exit(1)
+        sys.exit(1)

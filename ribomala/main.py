@@ -7,7 +7,7 @@ from ribomala import index, qc, analysis
 
 
 def get_arguments():
-    # Top-level parser
+    
     parser = argparse.ArgumentParser(
         prog="ribomala",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -26,7 +26,7 @@ It contains three modes:
         epilog="""
 
 If you find ribomala useful for your research please cite as:
-XYZ
+https://github.com/ps-puneetsharma/ribomala
 
         --◉--◎--◉--◎--◉--◎--◉--
 

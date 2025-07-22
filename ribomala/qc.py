@@ -1,9 +1,13 @@
 #! /usr/bin/env python3
 
 """
-Ribosome profiling quality control functionality for Ribomala.
-This module processes BAM files listed in a sample list.
-It extracts transcript ID, 5' position, read length, calculates reading frames, checks periodicity and ribosome reading frame, and saves the plots and data to the output directory.
+Ribosome profiling data quality control functionality for Ribomala. The module performs the following tasks:
+
+- processes BAM files listed in a sample list.
+- extracts transcript ID, 5' position and read length
+- calculates reading frames
+- checks periodicity and ribosome reading frame
+- Plots the data and saves them to the output directory.
 """
 
 import logging
@@ -11,6 +15,7 @@ from pathlib import Path
 import plotly.express as px
 import polars as pl
 import pysam
+import sys
 
 # --------------------------------------------------
 
@@ -262,6 +267,10 @@ def run(args):
         - min: Minimum read length to consider
         - max: Maximum read length to consider
 
+    Returns
+    -------
+    None
+
     Notes
     -----
     This function configures logging and executes the QC process.
@@ -317,4 +326,4 @@ def run(args):
 
     except Exception as e:
         logging.error(f"Processing BAM for QC failed: {e}")
-        exit(1)
+        sys.exit(1)

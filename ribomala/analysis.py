@@ -1,12 +1,13 @@
 #! /usr/bin/env python3
 
 """
-Ribosome profiling analysis functionality for Ribomala.
+Ribosome profiling data analysis functionality for Ribomala.
 This module processes BAM files listed in a sample sheet.
 Calculates E-, P- and A-site ribosome occupancy
 """
 
 import logging
+import os
 from pathlib import Path
 import polars as pl
 import sys
@@ -23,10 +24,12 @@ def parse_sample_sheet(
     """
     Parse the sample sheet and extract file names and their corresponding read length, frame, and offset information.
 
-    Args:
+    Parameters
+    ----------
         sample_sheet_path: Path to the sample sheet CSV file
 
-    Returns:
+    Returns
+    -------
         A tuple containing:
         - List of unique file names
         - Dictionary mapping file names to their read length, frame, and offset information as a polars DataFrame
@@ -88,11 +91,13 @@ def validate_input_files(
     """
     Validate that all files in the sample sheet exist in the input directory.
 
-    Args:
+    Parameters
+    ----------
         input_dir: Directory containing input BAM files
         file_names: List of file names from the sample sheet
 
-    Returns:
+    Returns
+    -------
         A tuple containing:
         - List of valid file paths
         - List of missing files
@@ -139,6 +144,7 @@ def asite_pos(df: pl.DataFrame, offset_file: pl.DataFrame) -> pl.DataFrame:
     ----------
     df : pl.DataFrame
         Input DataFrame that must include 'read_length', 'frame', 'pos', and 'transcript_id' columns.
+        
     offset_file : str
         Path to a tab-delimited offset file with columns: read_length, frame, offset.
 
@@ -630,6 +636,7 @@ def run(args):
             logging.info("Calculating enrichment scores")
             enrichment_df = calc_enrichment_score(enrichment_df)
 
+            # Enrichment around the codons of choice
             for codon in codons:
                 logging.info(f"Calculating offset enrichment for codon: {codon}")
                 offset_enrichment_df = calc_enrichment_offset(
@@ -642,17 +649,28 @@ def run(args):
                     codon=codon,
                 )
 
+                offset_out_path = Path(output_dir) / "offset_enrichment"
+                offset_out_path.mkdir(parents=True, exist_ok=True)
                 output_path = (
-                    output_dir / f"{output_name}_{codon}_offset_enrichment_scores.csv"
+                    offset_out_path / f"{output_name}_{codon}_offset_enrichment_scores.csv"
                 )
                 logging.info(f"Writing enrichment scores to {output_path}")
                 offset_enrichment_df.write_csv(output_path)
 
-            enrichment_output_path = output_dir / f"{output_name}_enrichment_scores.csv"
+            enrichment_out_path = Path(output_dir) / "enrichment_epa_site"
+            enrichment_out_path.mkdir(parents=True, exist_ok=True)
+
+            enrichment_output_path = Path(enrichment_out_path) / f"{output_name}_enrichment_scores.csv"
+
             logging.info(f"Writing enrichment scores to {enrichment_output_path}")
             enrichment_df.write_csv(enrichment_output_path)
 
-            count_output_path = output_dir / f"{output_name}_counts.csv"
+
+            count_out_path = Path(output_dir) / "cds_counts"
+            count_out_path.mkdir(parents=True, exist_ok=True)
+
+            count_output_path = Path(count_out_path) / f"{output_name}_counts.csv"
+
             logging.info(f"Writing transcripts count to {count_output_path}")
             count_df.write_csv(count_output_path)
 
