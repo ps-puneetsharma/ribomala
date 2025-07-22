@@ -11,3 +11,10 @@ Ribomala is a python package to efficiently analyze ribosome  profiling data.
 # Installation
 
 # Documentation
+
+Documentation can be accessed [here](https://ps-puneetsharma.github.io/ribomala/). It will walk you through ribosome profiling data analysis from scratch.
+
+# TODO
+
+- Introduce statistical tests
+- Plots
