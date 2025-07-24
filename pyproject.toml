@@ -1,6 +1,6 @@
 [project]
 name = "ribomala"
-version = "0.5.3"
+version = "0.5.4"
 authors = [{ name="Puneet Sharma"}]
 description = "Ribomala is a python package to efficiently analyze ribosome profiling data."
 readme = "README.md"

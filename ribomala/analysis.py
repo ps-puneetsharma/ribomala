@@ -384,7 +384,7 @@ def calc_enrichment_score(df: pl.DataFrame) -> pl.DataFrame:
         df.group_by("transcript_id")
         .agg(
             total_reads=pl.sum("reads"),
-            transcript_length=pl.first("length"),
+            transcript_length=(pl.first("length") / 3),
         )
         .with_columns(
             mean_read_count=(pl.col("total_reads") / pl.col("transcript_length"))
