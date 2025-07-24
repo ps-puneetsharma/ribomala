@@ -221,7 +221,7 @@ def filter_and_comp_ep_pos(
         and 'reads' columns. Only includes transcripts with at least 3 nucleotides remaining
         after trimming and only positions within the valid range.
     """
-    trim_nt = 18 + excl_start + excl_end
+    trim_nt = 18 + excl_start + excl_end + 18
     fasta_index = pl.read_csv(fasta_index)
 
     tmp_df = (
